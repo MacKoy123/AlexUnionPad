@@ -19,9 +19,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var fourCharacterLabel: UILabel!
     @IBOutlet weak var fiveCharacterLabel: UILabel!
     @IBOutlet weak var sixCharacterLabel: UILabel!
+    @IBOutlet weak var timerLabel: UILabel!
+    @IBOutlet weak var timerTitle: UILabel!
     
     var peerID: MCPeerID!
     var mcSession: MCSession!
+    var timer = Timer()
     
     var song: String! {
         didSet {
@@ -59,6 +62,8 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "GameTableViewCell", bundle: nil), forCellReuseIdentifier: "tbCell")
         setupConnectivity()
+        timerLabel.isHidden = true
+        timerTitle.isHidden = true
     }
 
     func setupConnectivity() {
@@ -86,12 +91,15 @@ class ViewController: UIViewController {
     
     func clearLabel() {
         DispatchQueue.main.async {
+            self.timer.invalidate()
             self.oneCharacterLabel.text = nil
             self.twoCharacterLabel.text = nil
             self.threeCharacterLabel.text = nil
             self.fourCharacterLabel.text = nil
             self.fiveCharacterLabel.text = nil
             self.sixCharacterLabel.text = nil
+            self.timerLabel.isHidden = true
+            self.timerTitle.isHidden = true
         }
     }
     
@@ -146,21 +154,40 @@ extension ViewController: MCBrowserViewControllerDelegate, MCSessionDelegate {
                     case 1: numberCharacterSetValue(label: oneCharacterLabel, letter: string)
                     case 2: numberCharacterSetValue(label: twoCharacterLabel, letter: string)
                     case 3: numberCharacterSetValue(label: threeCharacterLabel, letter: string)
+                    DispatchQueue.main.async {
+                        self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.timerUpdate1Min), userInfo: NSDate(), repeats: true)
+                    }
                     case 4: numberCharacterSetValue(label: fourCharacterLabel, letter: string)
+                    DispatchQueue.main.async {
+                        self.timer.invalidate()
+                        self.timerLabel.isHidden = true
+                        self.timerTitle.isHidden = true
+                    }
                     case 5: numberCharacterSetValue(label: fiveCharacterLabel, letter: string)
+                    DispatchQueue.main.async {
+                        self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.timerUpdate30Sec), userInfo: NSDate(), repeats: true)
+                        }
                     case 6: numberCharacterSetValue(label: sixCharacterLabel, letter: string)
+                    DispatchQueue.main.async {
+                        self.timer.invalidate()
+                        self.timerLabel.isHidden = true
+                        self.timerTitle.isHidden = true
+                        self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.timerUpdate30Sec), userInfo: NSDate(), repeats: true)
+                        }
                     default: break
                     }
                 }
             } else {
                 if string == "getAnswerPlease" {
                     buttonCharacters = Array(Set(song.uppercased()))
+                    timeIsEnded()
                 } else if string == "endThisGame" {
                     defaultValue()
                 } else {
                     song = string
                     buttonCharacters = []
                     charactersCount = 0
+                    timeIsEnded()
                 }
             }
         }
@@ -177,6 +204,48 @@ extension ViewController: MCBrowserViewControllerDelegate, MCSessionDelegate {
     func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
         
     }
+    
+    @objc func timerUpdate1Min() {
+        timerLabel.isHidden = false
+        timerTitle.isHidden = false
+        let elapsed = 60 + (self.timer.userInfo as! NSDate).timeIntervalSinceNow
+        if elapsed > 0 {
+            if elapsed < 10 {
+                timerLabel.textColor = UIColor.red
+            } else {
+                timerLabel.textColor = UIColor.black
+            }
+            timerLabel.text = String(format: "%.0f", elapsed)
+        }
+        if elapsed < 0 {
+            timeIsEnded()
+        }
+    }
+    
+    @objc func timerUpdate30Sec() {
+        timerLabel.isHidden = false
+        timerTitle.isHidden = false
+        let elapsed = 30 + (self.timer.userInfo as! NSDate).timeIntervalSinceNow
+        if elapsed > 0 {
+            if elapsed < 10 {
+                timerLabel.textColor = UIColor.red
+            } else {
+                timerLabel.textColor = UIColor.black
+            }
+            timerLabel.text = String(format: "%.0f", elapsed)
+        }
+        if elapsed < 0 {
+            timeIsEnded()
+        }
+    }
+    
+    func timeIsEnded() {
+        DispatchQueue.main.async {
+            self.timer.invalidate()
+            self.timerLabel.isHidden = true
+            self.timerTitle.isHidden = true
+        }
+    }
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
@@ -192,6 +261,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70.0
+        return 90.0
     }
 }

@@ -76,6 +76,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Осталось времени:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kap-g1-hxU">
+                                <rect key="frame" x="20" y="712" width="345.5" height="43"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="36"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pze-XY-izY">
+                                <rect key="frame" x="360.5" y="707" width="25" height="53"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="44"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -90,17 +102,21 @@
                             <constraint firstItem="fZY-WF-ItX" firstAttribute="top" secondItem="uJY-nZ-cR3" secondAttribute="top" id="GeC-uC-c0i"/>
                             <constraint firstItem="mrV-ZS-IPp" firstAttribute="top" secondItem="FVl-Sr-kmV" secondAttribute="bottom" constant="10" id="HP3-Ig-5s6"/>
                             <constraint firstItem="gbf-pT-K6M" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="IeP-tO-DjE"/>
+                            <constraint firstItem="kap-g1-hxU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="MDD-gg-o1m"/>
                             <constraint firstItem="vvx-dF-VFT" firstAttribute="centerX" secondItem="uJY-nZ-cR3" secondAttribute="centerX" id="QDk-yg-m5q"/>
                             <constraint firstItem="fZY-WF-ItX" firstAttribute="leading" secondItem="DPk-D0-hMv" secondAttribute="trailing" constant="20" id="UIF-pe-Bp6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gbf-pT-K6M" secondAttribute="trailing" constant="20" id="UTf-sp-ZBM"/>
                             <constraint firstItem="mrV-ZS-IPp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Xet-vj-Q5f"/>
                             <constraint firstItem="gbf-pT-K6M" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="elP-H3-qO0"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="kap-g1-hxU" secondAttribute="bottom" constant="107" id="hOO-ix-Yan"/>
+                            <constraint firstItem="Pze-XY-izY" firstAttribute="centerY" secondItem="kap-g1-hxU" secondAttribute="centerY" id="kKK-bb-U2f"/>
                             <constraint firstItem="FVl-Sr-kmV" firstAttribute="top" secondItem="uHo-lG-Wfm" secondAttribute="bottom" constant="10" id="kiu-ut-jAi"/>
+                            <constraint firstItem="kap-g1-hxU" firstAttribute="top" secondItem="mrV-ZS-IPp" secondAttribute="bottom" constant="10" id="p1t-cP-Cg7"/>
                             <constraint firstItem="vvx-dF-VFT" firstAttribute="centerY" secondItem="FVl-Sr-kmV" secondAttribute="centerY" id="sqb-5c-eBo"/>
                             <constraint firstItem="DPk-D0-hMv" firstAttribute="top" secondItem="uJY-nZ-cR3" secondAttribute="top" id="tIh-fK-lvc"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="mrV-ZS-IPp" secondAttribute="bottom" constant="160" id="v03-04-En1"/>
                             <constraint firstItem="fZY-WF-ItX" firstAttribute="centerY" secondItem="uJY-nZ-cR3" secondAttribute="centerY" id="xHA-Rl-tf6"/>
                             <constraint firstItem="uJY-nZ-cR3" firstAttribute="leading" secondItem="uHo-lG-Wfm" secondAttribute="trailing" constant="30" id="y1H-3g-wOG"/>
+                            <constraint firstItem="Pze-XY-izY" firstAttribute="centerX" secondItem="BSb-eh-rKC" secondAttribute="centerX" id="zBy-OE-LbJ"/>
                             <constraint firstItem="uHo-lG-Wfm" firstAttribute="top" secondItem="gbf-pT-K6M" secondAttribute="bottom" constant="30" id="zem-Nh-rsq"/>
                             <constraint firstItem="DPk-D0-hMv" firstAttribute="centerY" secondItem="uJY-nZ-cR3" secondAttribute="centerY" id="zqq-NL-1kn"/>
                         </constraints>
@@ -120,6 +136,8 @@
                         <outlet property="sixCharacterLabel" destination="Od3-ol-ron" id="jXa-QJ-i4o"/>
                         <outlet property="tableView" destination="gbf-pT-K6M" id="RHc-Dx-QOp"/>
                         <outlet property="threeCharacterLabel" destination="fZY-WF-ItX" id="hXY-pj-IRf"/>
+                        <outlet property="timerLabel" destination="Pze-XY-izY" id="O6m-dK-hp2"/>
+                        <outlet property="timerTitle" destination="kap-g1-hxU" id="Rvn-gd-GNg"/>
                         <outlet property="twoCharacterLabel" destination="DPk-D0-hMv" id="wvw-Nx-1Mq"/>
                     </connections>
                 </viewController>

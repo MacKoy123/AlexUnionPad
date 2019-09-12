@@ -49,5 +49,4 @@ extension GameTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
         }
         return cell
     }
-    
 }
