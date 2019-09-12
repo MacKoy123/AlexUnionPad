@@ -42,6 +42,8 @@ class ViewController: UIViewController {
         }
     }
     
+    var casheButtonCharacters: [Character] = []
+    
     var charactersCount: Int = 0
     
     var textSongCharacters: Set<Character> {
@@ -179,13 +181,27 @@ extension ViewController: MCBrowserViewControllerDelegate, MCSessionDelegate {
                 }
             } else {
                 if string == "getAnswerPlease" {
-                    buttonCharacters = Array(Set(song.uppercased()))
-                    timeIsEnded()
+                    DispatchQueue.main.async {
+                        self.buttonCharacters = Array(Set(self.song.uppercased()))
+                        self.timer.invalidate()
+                        self.timerLabel.isHidden = true
+                        self.timerTitle.isHidden = true
+                        self.tableView.reloadData()
+                    }
                 } else if string == "endThisGame" {
                     defaultValue()
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                } else if string == "showCharacters" {
+                    DispatchQueue.main.async {
+                        self.buttonCharacters = self.casheButtonCharacters
+                        self.tableView.reloadData()
+                    }
                 } else {
                     song = string
                     buttonCharacters = []
+                    casheButtonCharacters = []
                     charactersCount = 0
                     timeIsEnded()
                 }
@@ -241,9 +257,12 @@ extension ViewController: MCBrowserViewControllerDelegate, MCSessionDelegate {
     
     func timeIsEnded() {
         DispatchQueue.main.async {
+            self.casheButtonCharacters = self.buttonCharacters
+            self.buttonCharacters = []
             self.timer.invalidate()
             self.timerLabel.isHidden = true
             self.timerTitle.isHidden = true
+            self.tableView.reloadData()
         }
     }
 }
